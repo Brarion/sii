@@ -2,11 +2,14 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-function App() {
-  return (
+import s from './style.module.scss';
+
+const App = () => (
+  <div>
+    <header className={s.header} children="Header-Хуедер"/>
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+        <img src={logo} className="App-logo" alt="logo"/>
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
@@ -20,7 +23,7 @@ function App() {
         </a>
       </header>
     </div>
-  );
-}
+  </div>
+);
 
 export default App;
