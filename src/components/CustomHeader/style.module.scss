@@ -1,0 +1,33 @@
+.header {
+  height: 32px;
+  //-webkit-app-region: drag;
+  background: #b0b0b0;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .link {
+    height: 80%;
+    margin-left: 5px;
+    padding: 0 5px;
+
+    border: 1px solid grey;
+    border-radius: 5px;
+    box-shadow: 0 1px 7px rgba(84, 114, 130, 0.1);
+    background: rgba(0, 0, 0, 0.05);
+    text-decoration: none;
+    color: black;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.15);
+    }
+
+    &[aria-disabled=true] {
+      background: rgba(0, 0, 0, 0.3);
+      color: rgba(0, 0, 0, 0.5);
+      cursor: default;
+    }
+  }
+}
+

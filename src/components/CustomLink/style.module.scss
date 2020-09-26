@@ -1,0 +1,18 @@
+.link {
+  border: 1px solid grey;
+  border-radius: 20px;
+  box-shadow: 0 1px 7px rgba(84, 114, 130, 0.2);
+  background: rgba(0, 0, 0, 0.05);
+  text-decoration: none;
+  color: black;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.15);
+  }
+
+  &[aria-disabled=true] {
+    background: rgba(0, 0, 0, 0.3);
+    color: rgba(0, 0, 0, 0.5);
+    cursor: default;
+  }
+}
