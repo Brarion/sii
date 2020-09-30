@@ -22,25 +22,74 @@
 
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
   }
 
   @media screen and (max-width: 1000px) {
-    flex-direction: column;
+    display: block;
 
     .leftPanel {
-      width: 100%;
-      height: 90%;
+      width: auto;
+      min-height: 500px;
       margin-bottom: 0;
       margin-right: 25px;
     }
 
     .rightPanel {
-      width: 100%;
-      height: 10%;
+      width: auto;
+      height: auto;
       margin-bottom: 25px;
+      padding-bottom: 25px;
       margin-right: 25px;
     }
   }
+}
+
+
+.field {
+  width: 100%;
+  height: 100%;
+  margin: 25px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+
+  .column {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    &:first-child {
+      margin-left: 25px;
+    }
+
+    &:last-child {
+      margin-right: 25px;
+    }
+
+    .free, .queen {
+      width: auto;
+      height: -webkit-fill-available;
+      background: grey;
+      box-sizing: border-box;
+      border: 1px solid whitesmoke;
+    }
+
+    .free {
+      background: white;
+    }
+  }
+
+}
+
+.graph {
+  position: relative;
+  cursor: default;
+  width: 1000px;
+  height: 500px;
 }

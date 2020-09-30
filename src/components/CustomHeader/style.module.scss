@@ -1,7 +1,11 @@
 .header {
+  position: fixed;
+  width: 100%;
+  z-index: 10;
   height: 32px;
-  //-webkit-app-region: drag;
   background: #b0b0b0;
+  -webkit-user-select: none;
+  -webkit-app-region: drag;
 
   display: flex;
   justify-content: space-between;
@@ -11,6 +15,7 @@
     height: 80%;
     margin-left: 5px;
     padding: 0 5px;
+    -webkit-app-region: no-drag;
 
     border: 1px solid grey;
     border-radius: 5px;

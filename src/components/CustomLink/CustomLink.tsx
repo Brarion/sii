@@ -24,8 +24,10 @@ const CustomLink: FC<Props> = ({className, link, children, disabled = false, bac
         localStorage.setItem('prev', JSON.stringify(window.location.pathname));
       } else {
         const prevs = Array.from<string>(JSON.parse(prev));
-        prevs.push(window.location.pathname);
-        localStorage.setItem('prev', JSON.stringify(prevs));
+        if (prevs[prevs.length - 1] !== window.location.pathname) {
+          prevs.push(window.location.pathname);
+          localStorage.setItem('prev', JSON.stringify(prevs));
+        }
       }
     } else {
       if (prev != null) {

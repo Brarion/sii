@@ -5,11 +5,11 @@
 
 .animate {
   position: absolute;
+  padding-top: 32px;
   width: 100%;
   height: calc(100% - 2 * (25px + 1px) - 35px);
 
   @media screen and (max-width: 1000px) {
     height: 100%;
-    width: calc(100% - 2 * (25px + 1px));
   }
 }

@@ -16,11 +16,13 @@ const CustomHeader = (): ReactElement => {
     return '/';
   }
 
-  return <header className={s.header}>
-    <CustomLink link={getLink()} children="Назад" backButton={true} className={s.link}/>
-    <span children="Системы искусственного интеллекта"/>
-    <label />
-  </header>
+  return <div className={s.over}>
+    <header className={s.header}>
+      <CustomLink link={getLink()} children="Назад" backButton={true} className={s.link}/>
+      <span children="Системы искусственного интеллекта"/>
+      <label/>
+    </header>
+  </div>
 }
 
 export default CustomHeader;

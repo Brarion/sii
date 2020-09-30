@@ -1,0 +1,28 @@
+.button {
+  text-decoration: none;
+  outline: none;
+  display: inline-block;
+  color: white;
+  padding: 20px 30px;
+  margin: 25px 20px 10px;
+  border-radius: 10px;
+  border: none;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  background-image: linear-gradient(to right, #991163 0%, #4830F0 51%, #991163 100%);
+  background-size: 200% auto;
+  box-shadow: 0 0 20px rgba(0, 0, 0, .1);
+  transition: .5s;
+  width: 50%;
+  max-width: 250px;
+  cursor: pointer;
+
+  &:hover {
+    background-position: right center;
+  }
+
+  &:disabled {
+    background-image: linear-gradient(to right, #777777 0%, #9b9b9b 51%, #777777 100%);
+    cursor: default;
+  }
+}

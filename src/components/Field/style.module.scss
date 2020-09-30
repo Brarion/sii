@@ -1,0 +1,39 @@
+.field {
+  width: 100%;
+  height: 100%;
+  margin: 25px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+
+  .column {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    &:first-child {
+      margin-left: 25px;
+    }
+
+    &:last-child {
+      margin-right: 25px;
+    }
+
+    .free, .queen {
+      width: auto;
+      height: -webkit-fill-available;
+      background: grey;
+      box-sizing: border-box;
+      border: 1px solid whitesmoke;
+    }
+
+    .free {
+      background: white;
+    }
+  }
+
+}
