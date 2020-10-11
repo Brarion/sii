@@ -18,7 +18,7 @@ const Field: FC<Props> = ({array}) => {
         </div>)}
     </div>;
   } else {
-    return <div>Неверный массив</div>
+    return <div>Неверные данные</div>
   }
 }
 

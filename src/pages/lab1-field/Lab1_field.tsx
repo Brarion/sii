@@ -5,17 +5,19 @@ import Panel from "../../components/panel/Panel";
 import Field from "../../components/Field/Field";
 import CustomTextField from "../../components/CustomTextField/CustomTextField";
 import CustomButton from "../../components/CustomButton/CustomButton";
+import {VictoryLine, VictoryChart, VictoryTheme, VictoryTooltip, VictoryVoronoiContainer} from 'victory';
 
 import FieldENUM from "../../types/FieldENUM";
 
 import s from './style.module.scss';
+import {Button, Drawer, Grid, Paper, SwipeableDrawer, TextField} from "@material-ui/core";
 
 const data = [
-  {name: 100, value: 400},
-  {name: 500, value: 150},
-  {name: 900, value: 600},
-  {name: 1300, value: 180},
-  {name: 1700, value: 500}
+  {x: 100, y: 400},
+  {x: 500, y: 150},
+  {x: 900, y: 600},
+  {x: 1300, y: 180},
+  {x: 1700, y: 500}
 ]
 
 
@@ -29,8 +31,9 @@ type formState = {
 };
 
 type graphState = {
-  L: number;
-  currentTemp: number;
+  x: number;
+  y: number;
+  label: string;
 }
 
 type solutionState = {
@@ -38,10 +41,11 @@ type solutionState = {
   energy: number;
 }
 
-// let bestSolution: solutionState = {array: [], energy: 1000};
+let bestSolution: solutionState = {array: [], energy: 1000};
 let mainArray: number[] = [];
-let graph:graphState[] = [];
-let isCreated:boolean = false;
+let graph: graphState[] = [];
+let isCreated: boolean = false;
+let maxEnergy: number = 0;
 
 const Lab1_field = (): ReactElement => {
   const [form, setForm] = useState<formState>({
@@ -52,6 +56,9 @@ const Lab1_field = (): ReactElement => {
     k: '',
     isValid: false,
   });
+
+  const [isShowField, setIsShowField] = useState<boolean>(true)
+  const [isStarted, setIsStarted] = useState<boolean>(false)
 
   useEffect(() => {
     let flag = true;
@@ -73,10 +80,11 @@ const Lab1_field = (): ReactElement => {
     newArray.sort(() => Math.random() - 0.5);
 
     mainArray = newArray.slice();
-    // bestSolution = {array: [], energy: 1000};
+    bestSolution = {array: [], energy: 1000};
   }
 
-  const changeTextField = (event: React.ChangeEvent<HTMLInputElement>, field: string) => {
+  const changeTextField = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, field: string) => {
+    setIsStarted(false)
     isCreated = true;
     const temp = event.target.value;
 
@@ -180,19 +188,19 @@ const Lab1_field = (): ReactElement => {
 
     const newEnergy = getEnergy(newArray);
 
-    // console.log(newArray, newEnergy);
-
     return {newArray, newEnergy};
   }
 
   const handleClick = async () => {
+    setIsStarted(true)
     if (!isCreated)
       getRandomArray(+form.N);
     setForm({...form, isValid: false});
     let energy = getEnergy(mainArray);
     let temp = +form.maxTemp;
-    graph = [{L: energy, currentTemp: temp}];
+    graph = [{x: temp, y: energy, label: energy.toString()}];
     let p = 0;
+    maxEnergy = energy;
     let swapResult;
 
     while (temp > +form.minTemp) {
@@ -214,55 +222,76 @@ const Lab1_field = (): ReactElement => {
         }
       }
 
-      // console.log('check: ', swapResult);
-      // if (swapResult != null && swapResult.newEnergy < bestSolution.energy)
-      //   bestSolution = {array: swapResult.newArray, energy: swapResult.newEnergy};
+      if (swapResult != null && swapResult.newEnergy < bestSolution.energy)
+        bestSolution = {array: mainArray, energy: energy};
 
       temp *= +form.kf;
 
-      if (swapResult != null)
-        graph.push({L: energy, currentTemp: +temp.toFixed(2)});
+      if (swapResult != null) {
+        graph.push({x: +temp.toFixed(2), y: bestSolution.energy, label: bestSolution.energy.toString()});
+        maxEnergy = Math.max(maxEnergy, energy)
+      }
     }
     setForm({...form, isValid: true});
     isCreated = false;
   }
 
-  document.addEventListener("DOMContentLoaded", function(event)
-  {
-    window.onresize = function() {
-
-    };
-  });
+  const handleChangeData = () => {
+    setIsShowField(!isShowField)
+  }
 
   return (
-    <div className={s.lab1_field}>
-      <Panel className={s.leftPanel}>
-        {/*<Field array={mainArray}/>*/}
-        <LineChart className={s.graph}
-          width={window.innerWidth * 0.6}
-          height={window.innerHeight * 0.6}
-          data={graph}
-          margin={{top: 5, right: 20, left: 10, bottom: 5}}
-        >
-          <XAxis dataKey='currentTemp'/>
-          <YAxis dataKey='L'/>
-          <Tooltip/>
-          <CartesianGrid stroke="#000000"/>
-          <Legend/>
-          <Line type="monotone" dataKey="L" stroke="#ff0000"/>
-        </LineChart>
-      </Panel>
-      <Panel className={s.rightPanel}>
-        <CustomTextField name={'Количество ферзей'} value={form.N} handleChange={changeTextField} field='N'/>
-        <CustomTextField name={'Максимальная температура'} value={form.maxTemp} handleChange={changeTextField}
-                         field='maxTemp'/>
-        <CustomTextField name={'Минимальная температура'} value={form.minTemp} handleChange={changeTextField}
-                         field='minTemp'/>
-        <CustomTextField name={'Коэффициент'} value={form.kf} handleChange={changeTextField} field='kf'/>
-        <CustomTextField name={'Размер вложенного цикла'} value={form.k} handleChange={changeTextField} field='k'/>
-        <CustomButton onClick={handleClick} children={"Запуск"} disabled={!form.isValid}/>
-      </Panel>
-    </div>
+    <Grid container spacing={2} className={s.lab1_field}>
+      <Grid item xs={12} sm={12} md={12} lg={9} xl={9} className={s.grid_item}>
+        <Paper className={s.leftPanel}>
+          {isShowField
+            ? <Field array={!isStarted ? mainArray : bestSolution.array}/>
+            : <VictoryChart
+              theme={VictoryTheme.material}
+              domain={{ x: [+form.maxTemp ,+form.minTemp], y: [0, maxEnergy] }}
+              containerComponent={
+                <VictoryVoronoiContainer />
+              }
+            >
+              <VictoryLine
+                labelComponent={<VictoryTooltip/>}
+                style={{
+                  data: {stroke: "#3f51b5"},
+                  parent: {border: "1px solid #ccc"}
+                }}
+                data={graph}
+                animate={{
+                  duration: 1000,
+                  onLoad: {duration: 500},
+                }}
+              />
+            </VictoryChart>}
+        </Paper>
+      </Grid>
+      <Grid item xs={12} sm={12} md={12} lg={3} xl={3} className={s.grid_item}>
+        <Paper className={s.rightPanel}>
+          <TextField className={s.text_field} id="outlined-basic" label="Количество ферзей" variant="outlined"
+                     value={form.N}
+                     onChange={(event) => changeTextField(event, 'N')}/>
+          <TextField className={s.text_field} id="outlined-basic" label="Максимальная температура" variant="outlined"
+                     value={form.maxTemp}
+                     onChange={(event) => changeTextField(event, 'maxTemp')}/>
+          <TextField className={s.text_field} id="outlined-basic" label="Минимальная температура" variant="outlined"
+                     value={form.minTemp}
+                     onChange={(event) => changeTextField(event, 'minTemp')}/>
+          <TextField className={s.text_field} id="outlined-basic" label="Коэффициент" variant="outlined" value={form.kf}
+                     onChange={(event) => changeTextField(event, 'kf')}/>
+          <TextField className={s.text_field} id="outlined-basic" label="Размер вложенного цикла" variant="outlined"
+                     value={form.k}
+                     onChange={(event) => changeTextField(event, 'k')}/>
+          <Button onClick={handleClick} children={"Запуск"} disabled={!form.isValid} variant="contained" color="primary"
+                  className={s.button}/>
+          <Button onClick={handleChangeData} children={`Показать ${isShowField ? 'график' : 'поле'}`}
+                  variant="contained" color="primary"
+                  className={s.button}/>
+        </Paper>
+      </Grid>
+    </Grid>
   )
 }
 

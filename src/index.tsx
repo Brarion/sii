@@ -7,10 +7,7 @@ import {BrowserRouter as Router} from "react-router-dom";
 
 ReactDOM.render(
   <Router>
-    {
-      // @ts-ignore
-      <App/>
-    }
+    <App/>
   </Router>,
   document.getElementById('root')
 );

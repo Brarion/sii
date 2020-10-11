@@ -1,47 +1,39 @@
 .lab1_field {
-  width: 100%;
+  width: 100% !important;
   height: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
+  margin: 0 !important;
 
-  .leftPanel {
-    width: 80%;
-    height: 100%;
-    margin-right: 0;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .rightPanel {
-    width: 20%;
-    height: 100%;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-  }
-
-  @media screen and (max-width: 1000px) {
-    display: block;
+  .grid_item {
+    height: inherit;
 
     .leftPanel {
-      width: auto;
-      min-height: 500px;
-      margin-bottom: 0;
-      margin-right: 25px;
+      height: inherit;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
     }
 
     .rightPanel {
-      width: auto;
-      height: auto;
-      margin-bottom: 25px;
-      padding-bottom: 25px;
-      margin-right: 25px;
+      height: inherit;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+
+      .text_field {
+        width: calc(100% - 2 * 10px);
+        margin-top: 10px;
+      }
+
+      .button {
+        margin-top: 15px;
+        width: 50%;
+        height: 50px;
+      }
+
     }
   }
 }
