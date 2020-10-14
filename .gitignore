@@ -21,3 +21,10 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+/lab1*
+/dev*
+/sii*
+/builds
+
+

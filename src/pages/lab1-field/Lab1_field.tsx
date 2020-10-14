@@ -64,7 +64,7 @@ const Lab1_field = (): ReactElement => {
     let flag = true;
     Object.values<string | boolean>(form).map((item) => {
       if (typeof item === 'string')
-        if (isNaN(Number(item)) || item === '' || item.length > 4)
+        if (isNaN(Number(item)) || item === '')
           flag = false;
     })
 

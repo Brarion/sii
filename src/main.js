@@ -1,10 +1,10 @@
 const electron = require('electron');
+const path = require('path');
 
 // Module to control application life.
 const app = electron.app;
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow;
-require('electron-reload')
 
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -24,8 +24,8 @@ function createWindow() {
   });
 
   // TODO для build раскомментить
-  // mainWindow.loadURL(`file://${path.join(__dirname, '../build/index.html')}`);
-  mainWindow.loadURL('http://localhost:3000');
+  mainWindow.loadURL(`file://${path.join(__dirname, '../build/index.html')}`);
+  // mainWindow.loadURL('http://localhost:3000');
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
