@@ -204,7 +204,6 @@ const Lab1_field = (): ReactElement => {
     let swapResult;
 
     while (temp > +form.minTemp) {
-      // console.log(temp, bestSolution.energy, bestSolution.array);
       for (let i = 0; i < +form.k; i++) {
         swapResult = swap();
 
@@ -213,7 +212,6 @@ const Lab1_field = (): ReactElement => {
           energy = swapResult.newEnergy;
         } else {
           p = Math.exp(-(swapResult.newEnergy - energy) / temp);
-          // console.log('p: ', p);
           const random = Math.random();
           if (p > random) {
             mainArray = swapResult.newArray;

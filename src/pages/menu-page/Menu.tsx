@@ -15,7 +15,7 @@ const Menu = (): ReactElement => {
 
       <Button className={s.button} children="Лабораторная работа №2" variant="contained" component={Link}
               color={"primary"}
-              to="/" disabled={true}/>
+              to="/lab2_field" disabled={false}/>
     </Paper>
   )
 }
