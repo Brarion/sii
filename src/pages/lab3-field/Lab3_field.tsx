@@ -62,8 +62,8 @@ const myConfig = {
 const Lab3_field = (): ReactElement => {
   const [graph, setGraph] = React.useState<TGraphData>({nodes: [], links: []})
   const [isShowGraph, setIsShowGraph] = React.useState<boolean>(false)
-  const [path, setPath] = React.useState<number[]>([])
-  const [dist, setDist] = React.useState<number>(0)
+  const [path, setPath] = React.useState<number[][]>([])
+  const [dist, setDist] = React.useState<number[]>([])
   const [form, setForm] = React.useState<TForm>({
     cities: 0,
     ants: 0,
@@ -257,17 +257,34 @@ const Lab3_field = (): ReactElement => {
         // Если время не закончилось, то перезапускаем муравьев и тут же запоминаем лучшего (длину и путь)
         if (curTime !== maxTime) {
           restartAnts();
+
+          const resPath = path
+          resPath.push(bestAntPath)
+          setPath(resPath)
+
+          const distPath = dist
+          distPath.push(bestDistance)
+          setDist(distPath)
         }
       }
     }
 
-    setPath(bestAntPath)
-    setDist(bestDistance)
+    const resPath = path
+    resPath.push(bestAntPath)
+    setPath(resPath)
+
+    const distPath = dist
+    distPath.push(bestDistance)
+    setDist(distPath)
 
     changeGraph()
   }
 
   const getMap = (size: number) => {
+    data.nodes = []
+    data.links = []
+    setGraph({nodes: [], links: []})
+
     map = []
     for (let i = 0; i < size; i++)
       map.push({
@@ -297,6 +314,9 @@ const Lab3_field = (): ReactElement => {
 
   const init = () => {
     setIsShowGraph(false)
+
+    setPath([])
+    setDist([])
 
     // Создание муравьев
     ants = []
@@ -362,6 +382,9 @@ const Lab3_field = (): ReactElement => {
   const changeTextField = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, field: string) => {
     const temp: string = event.target.value;
 
+    setPath([])
+    setDist([])
+
     if (field === 'cities' && temp !== '' && !isNaN(+temp) && +temp >= 3 && form.cities !== +temp)
       getMap(+temp);
 
@@ -413,7 +436,9 @@ const Lab3_field = (): ReactElement => {
                    onChange={(event) => changeTextField(event, 'Q')}/>
         <Button onClick={handleClick} children={"Запуск"} variant="contained" color="primary"
                 className={s.button}/>
-                <div>{`${path.length > 0 ? `[${path}]` : ''}${dist > 0 ? ` ${dist}` : ''}`}</div>
+        <div className={s.res}>
+          {path.length > 0 && path.map((item, index) => <div key={index}>{`[${item}]`}{` ${dist[index]}`}</div>)}
+        </div>
       </Paper>
     </Grid>
   </Grid>
