@@ -1,0 +1,71 @@
+.lab4_field {
+  width: 100% !important;
+  height: 100%;
+  margin: 0 !important;
+
+  .grid_item {
+    height: inherit;
+
+    .leftPanel {
+      height: inherit;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      .field {
+        width: calc(100% - 35px);
+        height: 100%;
+        padding: 20px;
+
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        grid-template-rows: repeat(7, 1fr);
+
+        > * {
+          box-sizing: border-box;
+          border: 3px solid grey;
+
+          &:hover{
+            cursor: pointer;
+          }
+        }
+      }
+
+    }
+
+    .rightPanel {
+      height: inherit;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      padding-top: 20px;
+
+      .form {
+        padding-left: 20px;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+
+        :nth-child(n + 4) {
+          margin: 5px auto;
+        }
+      }
+
+      .text_field {
+        width: calc(100% - 2 * 10px);
+        margin-top: 10px;
+      }
+
+      .button {
+        margin: 10px auto 5px auto;
+        width: 50%;
+        height: 50px;
+      }
+
+    }
+  }
+}

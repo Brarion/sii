@@ -17,6 +17,8 @@
     "@types/recharts": "^1.8.15",
     "cross-env": "^7.0.2",
     "d3": "^5.5.0",
+    "effector": "^21.7.5",
+    "effector-react": "^21.2.0",
     "electron": "^10.1.2",
     "electron-is-dev": "^1.2.0",
     "node-sass": "^4.14.1",

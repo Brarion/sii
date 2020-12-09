@@ -20,6 +20,10 @@ const Menu = (): ReactElement => {
       <Button className={s.button} children="Лабораторная работа №3" variant="contained" component={Link}
               color={"primary"}
               to="/lab3_field" disabled={false}/>
+
+      <Button className={s.button} children="Лабораторная работа №4" variant="contained" component={Link}
+              color={"primary"}
+              to="/lab4_field" disabled={false}/>
     </Paper>
   )
 }
