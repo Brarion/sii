@@ -6,10 +6,8 @@ import {Graph} from 'react-d3-graph'
 import s from './style.module.scss'
 
 const maxDistance = 100;
-const maxTours = 20;
 let bestDistance = 0
 let bestPath: number[] = []
-let maxTime = 0;
 
 type TForm = {
   chromosomes: number;
