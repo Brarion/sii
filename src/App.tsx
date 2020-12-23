@@ -12,6 +12,7 @@ import CustomHeader from "./components/CustomHeader/CustomHeader";
 import Lab2_field from "./pages/lab2-field/Lab2_field";
 import Lab3_field from "./pages/lab3-field/Lab3_field";
 import Lab4_field from "./pages/lab4-field/Lab4_field";
+import Lab5_field from "./pages/lab5-field/Lab5_field";
 
 const App = (): ReactElement => {
 
@@ -24,6 +25,7 @@ const App = (): ReactElement => {
         <Route path="/lab2_field" component={Lab2_field}/>
         <Route path="/lab3_field" component={Lab3_field}/>
         <Route path="/lab4_field" component={Lab4_field}/>
+        <Route path="/lab5_field" component={Lab5_field}/>
       </Switch>
     </div>
 
