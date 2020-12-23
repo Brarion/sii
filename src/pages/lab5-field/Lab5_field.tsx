@@ -172,6 +172,7 @@ const Lab5_field = (): ReactElement => {
     }
   }
 
+  // Инициализация соседей (ближайшие города)
   const initNeighbours = () => {
     let neighbourIndex = 0
     let neighbourDistance = maxDistance * 10
